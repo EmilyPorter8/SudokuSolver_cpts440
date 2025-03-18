@@ -1,3 +1,5 @@
+#Inputs a CNF file containing the solution to the sudoku problem. Outputs it as a grid.
+#As of right now, is set to a 9x9 for base case
 def parse_miniSat_output(filename):
     with open(filename, "r") as f:
         lines = f.readlines()
