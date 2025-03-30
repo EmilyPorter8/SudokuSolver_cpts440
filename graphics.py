@@ -1,7 +1,9 @@
 import plotly.figure_factory as ff
-import numpy as np
+import SudokuSolver_cpts440.Sudoku_Generator as Sudoku_Generator 
 
-data = np.random.randint(0, 100, (100, 100)).tolist()
 
 fig = ff.create_table(data, colorscale='Blues')
 fig.show()
+
+def generateboard(self):
+    Sudoku_Generator.SudokuBoard
