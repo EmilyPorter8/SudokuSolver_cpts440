@@ -89,3 +89,14 @@ if __name__ == "__main__":
     board.dig_holes(removal_count)
 
     board.display()
+
+def run(block_size):
+    board = SudokuBoard(block_size)
+
+    board.fill_diagonal_boxes()
+    board.fill_remaining_bands()
+
+    removal_ratio = 0.5  # Adjust this value to control puzzle difficulty
+    removal_count = int(board.size * board.size * removal_ratio)
+    board.dig_holes(removal_count)
+    board.display()
