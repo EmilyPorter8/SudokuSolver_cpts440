@@ -99,4 +99,5 @@ def run(block_size):
     removal_ratio = 0.5  # Adjust this value to control puzzle difficulty
     removal_count = int(board.size * board.size * removal_ratio)
     board.dig_holes(removal_count)
-    board.display()
+    return board
+    #board.display()
