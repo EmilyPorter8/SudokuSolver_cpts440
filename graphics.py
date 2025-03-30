@@ -25,7 +25,12 @@ make_board.pack()
 board_frame = tk.Frame(root)
 board_frame.pack()
 
+def reset_board():
+    for child in board_frame.winfo_children():
+        child.destroy()
+
 def create_sudoku_table():
+    reset_board()
     size = boardsize.get()
     actual_size = size * size
     for i in range(actual_size):
