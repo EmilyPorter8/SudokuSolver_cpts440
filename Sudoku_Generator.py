@@ -74,7 +74,8 @@ class SudokuBoard:
                 print(f"{val if val != 0 else '.'}", end=" ")
             print("|")
         print(sep)
-
+    def valueReturn(self, x:int, y:int):
+        return self.grid[x][y]
 
 
 if __name__ == "__main__":
@@ -99,4 +100,5 @@ def run(block_size):
     removal_ratio = 0.5  # Adjust this value to control puzzle difficulty
     removal_count = int(board.size * board.size * removal_ratio)
     board.dig_holes(removal_count)
-    board.display()
+    return board
+    #board.display()
