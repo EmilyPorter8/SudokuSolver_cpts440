@@ -74,6 +74,9 @@ class SudokuBoard:
                 print(f"{val if val != 0 else '.'}", end=" ")
             print("|")
         print(sep)
+        
+    def valueReturn(self, x:int, y:int):
+        return self.grid[x][y]
 
 
 

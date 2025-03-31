@@ -30,7 +30,7 @@ def generateboard():
     sheet.grid()
     create_sudoku_sheet()
     #sheet.pack(expand = True, fill = "both")
-    board = Sudoku_Generator.run(size)
+    #board = Sudoku_Generator.run(size)
 
 make_board = tk.Button(input_frame, text="make the board", command=generateboard)
 make_board.pack()
@@ -45,9 +45,15 @@ def create_sudoku_sheet():
     actual_size = size * size
 
     #replace with actual data
-    test_data = [[f"{ri},{cj}" for cj in range(actual_size)] for ri in range(actual_size)]
+    # test_data = [[f"{ri},{cj}" for cj in range(actual_size)] for ri in range(actual_size)]
+    # sheet.set_sheet_data(test_data)
+    BackendBoard = Sudoku_Generator.run(size)
+    test_data = [[
+    " " if BackendBoard.valueReturn(cj, ri) == 0 else f"{BackendBoard.valueReturn(cj, ri)}"
+    for cj in range(actual_size)] for ri in range(actual_size)]
     sheet.set_sheet_data(test_data)
     sheet.set_all_cell_sizes_to_text()
+
 
     try:
         sheet.enable_bindings(("arrowkeys", "right", "left", "up", "down"))
