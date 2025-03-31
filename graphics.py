@@ -15,8 +15,8 @@ slider = tk.Scale( input_frame, variable = boardsize,
            from_ = 3, to = 9,  
            orient = tk.HORIZONTAL) 
 slider.pack()
-sheet = None
-board_frame = tk.Frame(root)
+
+board_frame = tk.Frame(root, width=5000, height = 5000)
 board_frame.pack(expand =True, fill = "both")
 sheet = tksheet.Sheet(board_frame)
 sheet.grid()
@@ -25,12 +25,11 @@ def generateboard():
     size = boardsize.get()
    # reset_board()
 
-
     board_frame.pack(expand =True, fill = "both")
     sheet = tksheet.Sheet(board_frame)
     sheet.grid()
-
     create_sudoku_sheet()
+    #sheet.pack(expand = True, fill = "both")
     board = Sudoku_Generator.run(size)
 
 make_board = tk.Button(input_frame, text="make the board", command=generateboard)
@@ -45,9 +44,10 @@ def create_sudoku_sheet():
 
     actual_size = size * size
 
-#replace with actual data
+    #replace with actual data
     test_data = [[f"{ri},{cj}" for cj in range(actual_size)] for ri in range(actual_size)]
     sheet.set_sheet_data(test_data)
+    sheet.set_all_cell_sizes_to_text()
 
     try:
         sheet.enable_bindings(("arrowkeys", "right", "left", "up", "down"))
@@ -59,17 +59,6 @@ def create_sudoku_sheet():
 def reset_board():
     for child in board_frame.winfo_children():
         child.destroy()
-
-#old funciton
-def create_sudoku_table():
-    reset_board()
-    size = boardsize.get()
-    actual_size = size * size
-    for i in range(actual_size):
-        for j in range(actual_size):
-            entry = tk.Entry(board_frame, width=4, font=('Helvetica', 8), justify='center')
-            entry.grid(row=i, column=j, padx=2, pady=2)
-
 
 #create_sudoku_table()
 root.mainloop()
