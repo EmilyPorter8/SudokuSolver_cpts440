@@ -1,8 +1,11 @@
+import Z3_IO.z3_io
 import tksheet
 from tksheet import Sheet
 import tkinter as tk
 import Sudoku_Generator as Sudoku_Generator 
 import CNF as CNF
+import Z3_IO as Z3_IO
+import z3solver as z3solver
 
 root = tk.Tk()
 root.title("Sudoku Solver")
@@ -24,6 +27,7 @@ board_frame = tk.Frame(root, width=5000, height = 5000)
 board_frame.pack(expand =True, fill = "both")
 sheet = tksheet.Sheet(board_frame)
 sheet.grid()
+BackendBoard
 
 def generateboard():
     size = boardsize.get()
@@ -37,18 +41,35 @@ def generateboard():
     #sheet.pack(expand = True, fill = "both")
     #board = Sudoku_Generator.run(size)
 
+def generatesolvedboard(solved_board):
+    if(solved_board):
+        sheet.set_sheet_data(solved_board)
+        sheet.set_all_cell_sizes_to_text()
+    else:
+        #show unsolvable
+        print("Board cannot be solved")
+
+
 make_board = tk.Button(input_frame, text="make the board", command=generateboard)
 make_board.pack()
 
 def z3_solve():
-    cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
-    CNF.save_cnf(cnf_clauses)
+    cnf = Z3_IO.z3_io.sudoku_to_cnf(BackendBoard, boardsize*boardsize)
+    # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
+    # # CNF.save_cnf(cnf_clauses)
+    solution = z3solver.solve_cnf(cnf)
+    if solution:
+        return Z3_IO.z3_io.cnf_to_sudoku(solution, boardsize*boardsize)
+    else:
+        return None
 
 def solveboard():
+    solve_board_bt['state'] = tk.DISABLED #reset button
     print(selected_solver)
     if selected_solver.get() == "Z3":
         print("Solving board for Z3...")
-        z3_solve()
+        solved_board = z3_solve()
+        generatesolvedboard(solved_board)
     elif selected_solver.get() == "DFS":
         print("Solving board for DFS...")
     return
@@ -60,6 +81,7 @@ solve_board_bt.pack()
 
 def create_sudoku_sheet():
     global sheet
+    global BackendBoard
     size = boardsize.get()
     if not sheet:
         print("sheet did not create for some reason")
