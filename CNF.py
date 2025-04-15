@@ -1,10 +1,12 @@
 import itertools
 
-def var(i, j, k, n=100):
+#changed this from 100 to 9
+def var(i, j, k, n=9):
     """ Returns a unique variable number for a given (row, column, number). """
     return i * n * n + j * n + k + 1
 
-def generate_sudoku_cnf(n=100):
+# changed this from 100 to 9
+def generate_sudoku_cnf(n=9):
     """ Generate CNF constraints for a 100x100 Sudoku puzzle. """
     clauses = []
 
@@ -27,10 +29,11 @@ def generate_sudoku_cnf(n=100):
 
     return clauses
 
-def save_cnf(clauses, filename="sudoku_100x100.cnf"):
+def save_cnf(clauses, filename="sudoku_9x9.cnf"):
     """ Save CNF formula to a DIMACS format file. """
     with open(filename, "w") as f:
-        f.write(f"p cnf {100*100*100} {len(clauses)}\n")
+        #f.write(f"p cnf {100*100*100} {len(clauses)}\n")
+        f.write(f"p cnf {9*9*9} {len(clauses)}\n")
         for clause in clauses:
             f.write(" ".join(map(str, clause)) + " 0\n")
 
@@ -38,4 +41,4 @@ def save_cnf(clauses, filename="sudoku_100x100.cnf"):
 cnf_clauses = generate_sudoku_cnf()
 save_cnf(cnf_clauses)
 
-print("CNF file generated: sudoku_100x100.cnf")
+print("CNF file generated: sudoku_nxn.cnf")

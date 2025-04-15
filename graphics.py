@@ -2,7 +2,7 @@ import tksheet
 from tksheet import Sheet
 import tkinter as tk
 import Sudoku_Generator as Sudoku_Generator 
-import CNF as CNF
+import CNF as cnf
 
 root = tk.Tk()
 root.title("Sudoku Solver")
@@ -41,8 +41,10 @@ make_board = tk.Button(input_frame, text="make the board", command=generateboard
 make_board.pack()
 
 def z3_solve():
-    cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
-    CNF.save_cnf(cnf_clauses)
+    # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
+    # CNF.save_cnf(cnf_clauses)
+    print("Solving board for Z3...")
+
 
 def solveboard():
     print(selected_solver)
