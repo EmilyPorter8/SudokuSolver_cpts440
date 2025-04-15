@@ -3,7 +3,7 @@ from tksheet import Sheet
 import tkinter as tk
 import Sudoku_Generator as Sudoku_Generator 
 import CNF
-import Z3_IO 
+import Z3_IO.z3_io as z3_io
 import z3solver
 
 root = tk.Tk()
@@ -56,12 +56,12 @@ def z3_solve():
     # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
     # CNF.save_cnf(cnf_clauses)
     print("Solving board for Z3...")
-    cnf = Z3_IO.z3_io.sudoku_to_cnf(BackendBoard, boardsize*boardsize)
+    cnf = z3_io.sudoku_to_cnf(BackendBoard, boardsize*boardsize)
     # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
     # # CNF.save_cnf(cnf_clauses)
     solution = z3solver.solve_cnf(cnf)
     if solution:
-        return Z3_IO.z3_io.cnf_to_sudoku(solution, boardsize*boardsize)
+        return z3_io.cnf_to_sudoku(solution, boardsize*boardsize)
     else:
         return None
 
