@@ -55,13 +55,15 @@ make_board.pack()
 def z3_solve():
     # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
     # CNF.save_cnf(cnf_clauses)
+    global boardsize, BackendBoard
+    boardsize_sq = boardsize.get() * boardsize.get()
     print("Solving board for Z3...")
-    cnf = z3_io.sudoku_to_cnf(BackendBoard, boardsize*boardsize)
+    cnf = z3_io.sudoku_to_cnf(BackendBoard, boardsize_sq)
     # cnf_clauses = CNF.generate_sudoku_cnf(boardsize*boardsize) #call shampurna's cnf
     # # CNF.save_cnf(cnf_clauses)
     solution = z3solver.solve_cnf(cnf)
     if solution:
-        return z3_io.cnf_to_sudoku(solution, boardsize*boardsize)
+        return z3_io.cnf_to_sudoku(solution, boardsize_sq)
     else:
         return None
 
