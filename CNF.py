@@ -29,16 +29,19 @@ def generate_sudoku_cnf(n=9):
 
     return clauses
 
-def save_cnf(clauses, filename="sudoku_9x9.cnf"):
+def save_cnf(clauses,n, filename="sudoku_9x9.cnf"):
     """ Save CNF formula to a DIMACS format file. """
     with open(filename, "w") as f:
         #f.write(f"p cnf {100*100*100} {len(clauses)}\n")
-        f.write(f"p cnf {9*9*9} {len(clauses)}\n")
+        f.write(f"p cnf {n*n*n} {len(clauses)}\n")
         for clause in clauses:
             f.write(" ".join(map(str, clause)) + " 0\n")
 
-# Generate CNF for 100x100 Sudoku
-cnf_clauses = generate_sudoku_cnf()
-save_cnf(cnf_clauses)
 
-print("CNF file generated: sudoku_nxn.cnf")
+# Generate CNF for 100x100 Sudoku
+def run(n):
+    cnf_clauses = generate_sudoku_cnf(n)
+    save_cnf(cnf_clauses,n)
+
+    print("CNF file generated: sudoku_nxn.cnf")
+
