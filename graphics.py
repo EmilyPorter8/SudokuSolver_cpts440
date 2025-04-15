@@ -4,7 +4,7 @@ import tkinter as tk
 import Sudoku_Generator as Sudoku_Generator 
 import CNF
 import Z3_IO 
-import z3solver as z3solver
+import z3solver
 
 root = tk.Tk()
 root.title("Sudoku Solver")
