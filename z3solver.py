@@ -12,10 +12,20 @@ def solve_cnf(cnf):
     Returns:
         dict or None: A dictionary mapping variable names to Boolean values if satisfiable, else None.
     """
+    
+    print("DEBUG: Received CNF:")
+    for clause in cnf:
+        print(f"  Clause: {clause}")
+    
     # Determine the maximum variable index in the CNF
     max_var = max(abs(lit) for clause in cnf for lit in clause)
+    
+    print(f"DEBUG: Max variable index: {max_var}")
+    
     # Create Boolean variables v1, v2, ..., v_max
     variables = {i: Bool(f"v{i}") for i in range(1, max_var + 1)}
+    
+    print(f"DEBUG: Created variables: {list(variables.values())}")
     
     solver = Solver()
     
@@ -29,14 +39,26 @@ def solve_cnf(cnf):
             else:
                 z3_clause.append(Not(variables[abs(lit)]))
         solver.add(Or(z3_clause))
-    
+
+        
     # Check if the CNF is satisfiable
-    if solver.check() == sat:
+    result = solver.check()
+    print(f"DEBUG: Solver result: {result}")
+        
+    # Check if the CNF is satisfiable
+    if result == sat:
         model = solver.model()
         # Create an assignment dictionary
         assignment = {str(variables[i]): model.evaluate(variables[i]) for i in variables}
+
+        print("DEBUG: Model assignment:")
+        for var, val in assignment.items():
+            print(f"  {var} = {val}")
+        
         return assignment
     else:
+        
+        print("DEBUG: CNF is unsatisfiable.")
         return None
 
 # Example usage:
