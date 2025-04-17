@@ -62,7 +62,7 @@ def z3_solve():
     actual_size = boardsize.get() * boardsize.get()
     
     grid = [
-        [BackendBoard.valueReturn(j, i) for j in range(actual_size)]
+        [BackendBoard[j, i] for j in range(actual_size)]
         for i in range(actual_size)
     ]
 
@@ -111,7 +111,7 @@ def create_sudoku_sheet():
 
     #BackendBoard = Sudoku_Generator.run(size, )
     test_data = [[
-    " " if BackendBoard.valueReturn(cj, ri) == 0 else f"{BackendBoard.valueReturn(cj, ri)}"
+    " " if BackendBoard[cj, ri] == 0 else f"{BackendBoard[cj, ri]}"
     for cj in range(actual_size)] for ri in range(actual_size)]
     sheet.set_sheet_data(test_data)
     sheet.set_all_cell_sizes_to_text()
