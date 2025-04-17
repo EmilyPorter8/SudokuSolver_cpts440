@@ -88,8 +88,10 @@ def solveboard():
 
 select_difficult_menu = tk.OptionMenu(input_frame, selected_difficulty, *difficulty_levels)
 select_difficult_menu.pack()
+
 select_solver_menu = tk.OptionMenu(input_frame, selected_solver, *solvers)
 select_solver_menu.pack()
+
 solve_board_bt = tk.Button(input_frame, text = "Solve the board", state = tk.DISABLED,command = solveboard)
 solve_board_bt.pack()
 
@@ -102,9 +104,9 @@ def create_sudoku_sheet():
 
     actual_size = size * size
 
-    if selected_difficulty == "Easy":
+    if selected_difficulty.get() == "Easy":
         BackendBoard = Sudoku_Generator.run(size, 0)
-    elif selected_difficulty == "Medium":
+    elif selected_difficulty.get() == "Medium":
         BackendBoard = Sudoku_Generator.run(size, 1)
     else:
         BackendBoard = Sudoku_Generator.run(size, 2)
