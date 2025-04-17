@@ -1,7 +1,8 @@
 import tksheet
 from tksheet import Sheet
 import tkinter as tk
-import Sudoku_Generator as Sudoku_Generator 
+#import Sudoku_Generator as Sudoku_Generator 
+import BoardGenerator.SudokuBoard as Sudoku_Generator
 import CNF
 from Z3_IO.z3_io import sudoku_to_cnf, cnf_to_sudoku
 import z3solver
@@ -11,6 +12,10 @@ root.title("Sudoku Solver")
 
 input_frame = tk.Frame(root)
 input_frame.pack()
+
+selected_difficulty = tk.StringVar()
+selected_difficulty.set("Hard")
+difficulty_levels = ["Easy", "Medium", "Hard"]
 
 selected_solver = tk.StringVar()
 selected_solver.set("Z3")
@@ -81,6 +86,8 @@ def solveboard():
         print("Solving board for DFS...")
     return
 
+select_difficult_menu = tk.OptionMenu(input_frame, selected_difficulty, *difficulty_levels)
+select_difficult_menu.pack()
 select_solver_menu = tk.OptionMenu(input_frame, selected_solver, *solvers)
 select_solver_menu.pack()
 solve_board_bt = tk.Button(input_frame, text = "Solve the board", state = tk.DISABLED,command = solveboard)
@@ -94,7 +101,15 @@ def create_sudoku_sheet():
         return
 
     actual_size = size * size
-    BackendBoard = Sudoku_Generator.run(size)
+
+    if selected_difficulty == "Easy":
+        BackendBoard = Sudoku_Generator.run(size, 0)
+    elif selected_difficulty == "Medium":
+        BackendBoard = Sudoku_Generator.run(size, 1)
+    else:
+        BackendBoard = Sudoku_Generator.run(size, 2)
+
+    #BackendBoard = Sudoku_Generator.run(size, )
     test_data = [[
     " " if BackendBoard.valueReturn(cj, ri) == 0 else f"{BackendBoard.valueReturn(cj, ri)}"
     for cj in range(actual_size)] for ri in range(actual_size)]
