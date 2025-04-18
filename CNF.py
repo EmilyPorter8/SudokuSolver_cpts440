@@ -9,46 +9,47 @@ def var(i, j, k, n=9):
 
 def generate_sudoku_cnf(n=9):
     clauses = []
+    v       = var             # Optimized: local alias to avoid global look‑up
+    rng     = range(n)        # Optimized: reuse the same range object
+    extend  = clauses.extend  # Optimized: batch insert instead of many append calls
 
     # Each cell must have at least one number
-    for i in range(n):
-        for j in range(n):
-            clauses.append([var(i, j, k, n) for k in range(n)])
+    extend([[v(i, j, k, n) for k in rng]          # Optimized: list‑comp + extend
+            for i in rng for j in rng])
 
     # Each cell must have at most one number (no two numbers in one cell)
-    for i in range(n):
-        for j in range(n):
-            for k1, k2 in itertools.combinations(range(n), 2):
-                clauses.append([-var(i, j, k1, n), -var(i, j, k2, n)])
+    for i in rng:
+        for j in rng:
+            extend([[-v(i, j, k1, n), -v(i, j, k2, n)]
+                    for k1, k2 in itertools.combinations(rng, 2)])
 
     # Each number must appear exactly once in each row
-    for i in range(n):
-        for k in range(n):
-            clauses.append([var(i, j, k, n) for j in range(n)])
-            for j1, j2 in itertools.combinations(range(n), 2):
-                clauses.append([-var(i, j1, k, n), -var(i, j2, k, n)])
+    for i in rng:
+        for k in rng:
+            row_vars = [v(i, j, k, n) for j in rng]
+            clauses.append(row_vars)
+            extend([[-row_vars[j1], -row_vars[j2]]
+                    for j1, j2 in itertools.combinations(rng, 2)])
 
     # Each number must appear exactly once in each column
-    for j in range(n):
-        for k in range(n):
-            clauses.append([var(i, j, k, n) for i in range(n)])
-            for i1, i2 in itertools.combinations(range(n), 2):
-                clauses.append([-var(i1, j, k, n), -var(i2, j, k, n)])
+    for j in rng:
+        for k in rng:
+            col_vars = [v(i, j, k, n) for i in rng]
+            clauses.append(col_vars)
+            extend([[-col_vars[i1], -col_vars[i2]]
+                    for i1, i2 in itertools.combinations(rng, 2)])
 
     # Each number must appear exactly once in each 3x3 subgrid
     block_size = int(n ** 0.5)
     assert block_size * block_size == n, "n must be a perfect square (like 9)."
 
-    for k in range(n):
+    for k in rng:
         for block_row in range(0, n, block_size):
             for block_col in range(0, n, block_size):
-                cells = []
-                for i in range(block_size):
-                    for j in range(block_size):
-                        cells.append(var(block_row + i, block_col + j, k, n))
-                clauses.append(cells)  # at least once in subgrid
-                for c1, c2 in itertools.combinations(cells, 2):
-                    clauses.append([-c1, -c2])  # at most once in subgrid
+                block_vars = [v(block_row + dr, block_col + dc, k, n)
+                              for dr in range(block_size) for dc in range(block_size)]
+                clauses.append(block_vars)
+                extend([[-c1, -c2] for c1, c2 in itertools.combinations(block_vars, 2)])
 
     return clauses
 
