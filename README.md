@@ -13,7 +13,8 @@ Sudoku Solver has the capabilities to generate a proper and solvable sudoku tabl
 * windows 11 or Ubuntu-22.04 
 * Visual Studio Code (or other compiler)
 * Git/GitHub capabilities
-* Python Installation: 
+* Python Installation:
+  
   Debian/Ubuntu:
     - Update your package list:
       ```
@@ -23,6 +24,7 @@ Sudoku Solver has the capabilities to generate a proper and solvable sudoku tabl
       ```
       sudo apt install python3-pip
       ```
+      
 CentOS/RHEL/Fedora:
     - Enable the EPEL repository:
       ```
@@ -32,23 +34,28 @@ CentOS/RHEL/Fedora:
       ```
        yum install python3-pip (or dnf install python3-pip for Fedora)
       ```
+      
 Arch Linux:
   ```
   pacman -S python-pip
   ```
+
 openSUSE:
 ```
   zypper install python3-pip
 ```
 * Libraries needed from PIP:
+  
   Z3-Solver:
   ``` 
     pip install z3-solver
   ```
+  
   PYSAT:
   ```
     pip install python-sat
   ```
+  
   tksheet:
   ```
     pip install tksheet
@@ -87,10 +94,15 @@ code blocks for commands
 
 ## Authors
 Emily Porter
+
 Claire Monson
+
 Shampurna Das
+
 Preston Livingston
+
 Brian Mcclosky
+
 Brenden Darnell
 
 
