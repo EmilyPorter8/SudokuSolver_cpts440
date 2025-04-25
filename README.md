@@ -89,21 +89,14 @@ openSUSE:
   - screen will appear
 * select size of sudoku, type of solver, and hit solve.
 * Warning: Larger Sudoku take much longer to complete.
-```
-code blocks for commands
-```
+
 
 ## Authors
 Emily Porter
-
 Claire Monson
-
 Shampurna Das
-
 Preston Livingston
-
 Brian Mcclosky
-
 Brenden Darnell
 
 
