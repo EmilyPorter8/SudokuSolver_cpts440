@@ -62,6 +62,12 @@ openSUSE:
     pip install tksheet
   ```
 
+  IF YOUR PYTHON INSTALLATION 
+DOESN'T ALREADY HAVE tkinter:
+  ```
+    pip install tkinter
+  ```
+
 
 ### Installing
 
