@@ -10,12 +10,12 @@ Sudoku Solver has the capabilities to generate a proper and solvable sudoku tabl
 
 ### Dependencies
 
-* windows 11 or Ubuntu-22.04 
+* Windows 10, MacOS, or Ubuntu-22.04 
 * Visual Studio Code (or other compiler)
 * Git/GitHub capabilities
 * Python Installation:
   
-  Debian/Ubuntu:
+  Debian/Ubuntu/MacOS:
     - Update your package list:
       ```
       sudo apt update
