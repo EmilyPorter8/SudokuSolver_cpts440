@@ -25,8 +25,9 @@ Sudoku Solver has the capabilities to generate a proper and solvable sudoku tabl
       sudo apt install python3-pip
       ```
       
-CentOS/RHEL/Fedora:
+  CentOS/RHEL/Fedora:
     - Enable the EPEL repository:
+      
       ```
       yum install epel-release (or dnf install epel-release for Fedora)
       ```
