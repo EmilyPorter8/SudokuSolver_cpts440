@@ -92,11 +92,11 @@ openSUSE:
 
 
 ## Authors
-Emily Porter
-Claire Monson
-Shampurna Das
-Preston Livingston
-Brian Mcclosky
+Emily Porter,
+Claire Monson,
+Shampurna Das,
+Preston Livingston,
+Brian Mcclosky,
 Brenden Darnell
 
 
