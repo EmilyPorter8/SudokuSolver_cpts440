@@ -1,5 +1,6 @@
 import psutil, time
 import matplotlib.pyplot as plt
+import seaborn as sns 
 from z3 import Solver, Bool, Or, Not
 from pysat.solvers import Minisat22
 
@@ -45,7 +46,8 @@ def benchmark(solver_func, cnf):
     solver_func(cnf)
     end_time = time.time()
     mem_after = process.memory_info().rss / (1024 * 1024)
-    return round(mem_after - mem_before, 2), round(end_time - start_time, 3)
+    memory_used = abs(mem_after - mem_before)
+    return round(memory_used, 2), round(end_time - start_time, 3)
 
 if __name__ == "__main__":
     # Block sizes (board size = block^2 x block^2)
@@ -71,6 +73,9 @@ if __name__ == "__main__":
         pysat_time.append(time_ps)
 
         print(f"{n}x{n} | Z3: {mem_z3} MB, {time_z3}s | PySAT: {mem_ps} MB, {time_ps}s")
+
+  
+    sns.set(style="whitegrid")
 
     # Save memory plot
     plt.figure(figsize=(10, 6))
