@@ -76,6 +76,11 @@ DOESN'T ALREADY HAVE tkinter:
   git clone <repo-name>
   ```
 
+ ### beenchmark execution
+   ```
+      python SAT_IO/benchmark.py
+  ```
+
 ### Executing program
 
 * VSCode or other compiler options:
@@ -93,6 +98,8 @@ DOESN'T ALREADY HAVE tkinter:
     python graphics.py
     ```
   - screen will appear
+ 
+    
 * select size of sudoku, type of solver, and hit solve.
 * Warning: Larger Sudoku take much longer to complete.
 
