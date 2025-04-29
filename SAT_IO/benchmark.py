@@ -50,8 +50,8 @@ def benchmark(solver_func, cnf):
     return round(memory_used, 2), round(end_time - start_time, 3)
 
 if __name__ == "__main__":
-    # Block sizes (board size = block^2 x block^2)
-    block_sizes = [2, 3, 4, 5, 6, 7, 8, 9]  # Includes 81x81 board at block=9
+    # Block sizes (board size = block^2 x block^2) — 4x4 REMOVED
+    block_sizes = [3, 4, 5, 6, 7, 8, 9]  # Starts from 9x9 board (block=3)
 
     z3_memory, z3_time = [], []
     pysat_memory, pysat_time = [], []
@@ -74,17 +74,16 @@ if __name__ == "__main__":
 
         print(f"{n}x{n} | Z3: {mem_z3} MB, {time_z3}s | PySAT: {mem_ps} MB, {time_ps}s")
 
-  
     sns.set(style="whitegrid")
 
     # Save memory plot
     plt.figure(figsize=(10, 6))
     board_labels = [f"{b*b}x{b*b}" for b in block_sizes]
-    plt.plot(block_sizes, z3_memory, marker='o', label='Z3 Memory (MB)')
-    plt.plot(block_sizes, pysat_memory, marker='o', label='PySAT Memory (MB)')
+    plt.plot(block_sizes, z3_memory, marker='o', color='red', label='Z3 Memory (MB)')
+    plt.plot(block_sizes, pysat_memory, marker='o', color='blue', label='PySAT Memory (MB)')
     plt.xticks(block_sizes, board_labels)
     plt.title('Memory Usage vs Board Size (Cell-Level Constraints)')
-    plt.xlabel('Board Size')
+    plt.xlabel('Board Size (N² × N²)')
     plt.ylabel('Memory Used (MB)')
     plt.legend()
     plt.grid(True)
@@ -93,11 +92,11 @@ if __name__ == "__main__":
 
     # Save time plot
     plt.figure(figsize=(10, 6))
-    plt.plot(block_sizes, z3_time, marker='o', label='Z3 Time (s)')
-    plt.plot(block_sizes, pysat_time, marker='o', label='PySAT Time (s)')
+    plt.plot(block_sizes, z3_time, marker='o', color='red', label='Z3 Time (s)')
+    plt.plot(block_sizes, pysat_time, marker='o', color='blue', label='PySAT Time (s)')
     plt.xticks(block_sizes, board_labels)
     plt.title('Solving Time vs Board Size (Cell-Level Constraints)')
-    plt.xlabel('Board Size')
+    plt.xlabel('Board Size (N² × N²)')
     plt.ylabel('Time Taken (s)')
     plt.legend()
     plt.grid(True)
